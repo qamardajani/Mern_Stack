@@ -1,0 +1,63 @@
+
+use my_first_db
+
+db.createCollection("students")
+
+db.students.insert({name: "omar", home_state: "ramallah", lucky_number: 9, birthday:{month:9, day:16, year:1998}})
+db.students.insert({name: "qamar", home_state: "nablus", lucky_number:3, birthday:{month:2, day:20, year:1999}})
+db.students.insert({name: "tala", home_state: "tulkarm", lucky_number: 5, birthday:{month:2, day:20, year:1999}})
+db.students.insert({name: "zaina", home_state: "jenin", lucky_number: 4, birthday:{month:4, day:22, year:1998}})
+db.students.insert({name: "amr", home_state: "ramallah", lucky_number: 41, birthday:{month:8, day:26, year:2000}})
+
+
+db.students.find()
+
+
+db.students.find({home_state: ("ramallah")})
+
+
+db.students.find({lucky_number: {$gt: 3}})
+
+db.students.find({lucky_number: {$lte: 10}})
+
+db.students.find({lucky_number: {$gte: 1 , $lte:9}})
+
+
+db.students.updateMany({},{$set: {interests: ["coding", "brunch", "MongoDB"]}})
+
+
+db.students.update({name:"omar"},{$addToSet: {interests:"java"}})
+db.students.update({name:"qamar"},{$addToSet: {interests:"python"}})
+db.students.update({name:"amr"},{$addToSet: {interests:"sql"}})
+db.students.update({name:"tala"},{$addToSet: {interests:"html"}})
+db.students.update({name:"zaina"},{$addToSet: {interests:"JS"}})
+
+
+db.students.update({name:"omar"},{$addToSet: {interests:"taxes"}})
+
+
+db.students.update({name:"omar"},{$pull: {interests:"taxes"}})
+
+
+db.students.remove({home_state: "nablus"})
+
+
+db.students.remove({home_state: "amr"})
+
+
+db.students.remove({lucky_number: {$gt: 5}}, {justOne: true})
+
+
+db.students.updateMany({},{$set: {number_of_belts: 0}})
+
+
+db.students.updateMany({home_state: "ramallah"},{$inc: {number_of_belts: 1}})
+
+
+db.students.updateMany({},{$rename: {number_of_belts: "belts_earned"}})
+
+
+db.students.updateMany({},{$unset: {lucky_number:""}})
+
+
+db.students.updateMany({},{$currentDate: {updated_on : true}})
